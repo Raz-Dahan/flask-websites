@@ -1,2 +1,2 @@
 # crypto flask
-showing real time coin rates
+showing real time coin rates.
