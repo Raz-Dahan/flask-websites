@@ -1,1 +1,1 @@
-not for git
+not for git.txt
