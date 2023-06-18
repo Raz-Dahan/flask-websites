@@ -20,7 +20,7 @@ pipeline {
             steps {
                 sh 'echo "pushing to s3"'
                 sh 'echo "packaging"'
-                sh 'aws s3 cp alpaca.tar.gz s3://raz-pipeline-test'
+                sh 'aws s3 cp alpaca.tar.gz s3://raz-flask-artifacts'
             }
         }
         stage('Test') {
