@@ -7,16 +7,10 @@ pipeline {
                 sh 'rm -rf *'
             }
         }
-        stage('Clone') {
-            steps {
-                sh 'echo "Building..."'
-                sh 'git clone https://github.com/Raz-Dahan/sample-flask.git'
-                sh 'ls'
-            }
-        }
         stage('Build') {
             steps {
                 sh 'echo "Building..."'
+                sh 'git clone https://github.com/Raz-Dahan/sample-flask.git'
                 sh 'echo "packaging"'
                 sh 'tar -czvf alpaca.tar.gz sample-flask'
                 sh 'ls'
