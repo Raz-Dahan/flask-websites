@@ -10,7 +10,6 @@ pipeline {
         }
         stage('Clone') {
             steps {
-                // Perform the clone step here
                 sh 'echo "Building..."'
                 sh 'git clone https://github.com/Raz-Dahan/sample-flask.git'
                 sh 'ls'
@@ -18,7 +17,6 @@ pipeline {
         }
         stage('Build') {
             steps {
-                // Perform the build step here
                 sh 'echo "Building..."'
                 sh 'echo "packaging"'
                 sh 'tar -czvf alpaca.tar.gz sample-flask'
@@ -27,7 +25,6 @@ pipeline {
         }
         stage('Push To Cloud') {
             steps {
-                // Perform the push to cloud step here
                 sh 'echo "pushing to s3"'
                 sh 'echo "packaging"'
                 sh 'aws s3 cp alpaca.tar.gz s3://raz-pipeline-test'
@@ -35,13 +32,11 @@ pipeline {
         }
         stage('Test') {
             steps {
-                // Perform the test step here
                 sh 'echo "Testing..."'
             }
         }
         stage('Deploy') {
             steps {
-                // Perform the deploy step here
                 sh 'echo "Deploying..."'
             }
         }
