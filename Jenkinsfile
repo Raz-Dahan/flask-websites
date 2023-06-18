@@ -3,7 +3,6 @@ pipeline {
     stages {
         stage('Cleanup') {
             steps {
-                // Perform the cleanup step here
                 sh 'echo "Performing cleanup..."'
                 sh 'rm -rf *'
             }
