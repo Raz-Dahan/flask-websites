@@ -26,40 +26,20 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'echo "Testing..."'
-                script {
-                    try {
-                        withAWSCLI(credentials: 'aws_admins') {
-                            sh 'aws ec2 describe-instances --filters "Name=tag:platform,Values=test"'
-                            // Perform other AWS CLI commands as needed
-                        }
-                        
-                        def instances = awsEC2.describeInstances(
-                            [
-                                filters: [
-                                    [name: 'tag:platform', values: 'test']
-                                ]
-                            ]
-                        ).reservations.flatten().collectMany { it.instances }
 
-                        if (instances.size() == 0) {
-                            error("No instances found with the 'platform:test' tag.")
-                        } else if (instances.size() > 1) {
-                            error("Multiple instances found with the 'platform:test' tag. Please ensure only one instance has this tag.")
-                        } else {
-                            def instanceId = instances[0].instanceId
-                            sh "aws s3 cp s3://raz-flask-artifacts/alpaca.tar.gz /home/ec2-user/"
-                            sh "tar -xzvf /home/ec2-user/alpaca.tar.gz -C /home/ec2-user/"
-                            // Perform other test-related tasks on the EC2 instance
-                        }
-                    } catch (Exception e) {
-                        error("An error occurred during the 'Test' stage: ${e.getMessage()}")
-                    }
-                }
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'echo "Deploying..."'
+                // Move tar file from S3 to EC2 instance
+                sh 'echo "Moving tar file to EC2..."'
+                sh 'aws s3 cp s3://raz-flask-artifacts/alpaca.tar.gz ~/alpaca.tar.gz'
+
+                // Extract tar file on EC2 instance
+                sh 'echo "Extracting tar file..."'
+                sh 'tar -xzvf ~/alpaca.tar.gz -C /home/ec2-user/'
+
+                // Optionally, you can run additional test commands here
+
+                // Clean up the tar file on EC2 instance
+                sh 'echo "Cleaning up..."'
+                sh 'rm ~/alpaca.tar.gz'
             }
         }
     }
