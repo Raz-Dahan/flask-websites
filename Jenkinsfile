@@ -11,15 +11,15 @@ pipeline {
             steps {
                 sh 'echo "Building..."'
                 sh 'git clone https://github.com/Raz-Dahan/sample-flask.git'
-                sh 'echo "packaging"'
+                sh 'echo "Packaging..."'
                 sh 'tar -czvf alpaca.tar.gz sample-flask'
                 sh 'ls'
             }
         }
         stage('Push To Cloud') {
             steps {
-                sh 'echo "pushing to s3"'
-                sh 'echo "packaging"'
+                sh 'echo "Pushing to S3..."'
+                sh 'echo "Packaging..."'
                 sh 'aws s3 cp alpaca.tar.gz s3://raz-flask-artifacts'
             }
         }
@@ -28,6 +28,11 @@ pipeline {
                 sh 'echo "Testing..."'
                 script {
                     try {
+                        withAWSCLI(credentials: 'aws_admins') {
+                            sh 'aws ec2 describe-instances --filters "Name=tag:platform,Values=test"'
+                            // Perform other AWS CLI commands as needed
+                        }
+                        
                         def instances = awsEC2.describeInstances(
                             [
                                 filters: [
