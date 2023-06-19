@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        INSTANCE_ID = ''
+    }
     stages {
         stage('Cleanup') {
             steps {
@@ -29,19 +32,21 @@ pipeline {
 
                 // Move tar file from S3 to EC2 instance with tag "platform:test"
                 sh 'echo "Moving tar file to EC2..."'
-                sh 'instance_id=$(aws ec2 describe-instances --filters "Name=tag:platform,Values=test" --query "Reservations[].Instances[].InstanceId" --output text)'
-                sh 'echo $instance_id'
-                sh 'aws ec2 scp ~/alpaca.tar.gz ${instance_id}:~/alpaca.tar.gz'
+                script {
+                    INSTANCE_ID = sh(returnStdout: true, script: 'aws ec2 describe-instances --filters "Name=tag:platform,Values=test" --query "Reservations[].Instances[].InstanceId" --output text').trim()
+                }
+                sh 'echo $INSTANCE_ID'
+                sh 'aws ec2 scp ~/alpaca.tar.gz ${INSTANCE_ID}:~/alpaca.tar.gz'
 
                 // Connect to the EC2 instance
                 sh 'echo "Connecting to EC2..."'
-                sh 'ssh -o StrictHostKeyChecking=no -i ~/.ssh/raz-key.pem ec2-user@${instance_id} "tar -xzvf ~/alpaca.tar.gz -C /home/ec2-user/"'
+                sh 'ssh -o StrictHostKeyChecking=no -i ~/.ssh/raz-key.pem ec2-user@${INSTANCE_ID} "tar -xzvf ~/alpaca.tar.gz -C /home/ec2-user/"'
 
                 // Optionally, you can run additional test commands here
 
                 // Clean up the tar file on the EC2 instance
                 sh 'echo "Cleaning up..."'
-                sh 'ssh -o StrictHostKeyChecking=no -i ~/.ssh/raz-key.pem ec2-user@${instance_id} "rm ~/alpaca.tar.gz"'
+                sh 'ssh -o StrictHostKeyChecking=no -i ~/.ssh/raz-key.pem ec2-user@${INSTANCE_ID} "rm ~/alpaca.tar.gz"'
             }
         }
     }
