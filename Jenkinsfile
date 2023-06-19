@@ -25,14 +25,11 @@ pipeline {
         }
         stage('Test') {
             steps {
-                script {
-                    env.instance_id = $(aws ec2 describe-instances --filters "Name=tag:platform,Values=test" --query "Reservations[].Instances[].InstanceId" --output text)
-                }
                 sh 'echo "Testing..."'
 
                 // Move tar file from S3 to EC2 instance with tag "platform:test"
                 sh 'echo "Moving tar file to EC2..."'
-                // sh 'instance_id=$(aws ec2 describe-instances --filters "Name=tag:platform,Values=test" --query "Reservations[].Instances[].InstanceId" --output text)'
+                sh 'instance_id=$(aws ec2 describe-instances --filters "Name=tag:platform,Values=test" --query "Reservations[].Instances[].InstanceId" --output text)'
                 sh 'echo $instance_id'
                 sh 'aws ec2 scp ~/alpaca.tar.gz ${instance_id}:~/alpaca.tar.gz'
 
