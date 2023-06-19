@@ -35,12 +35,12 @@ pipeline {
                 sh '''
                 INSTANCE_ID=$(aws ec2 describe-instances --filters 'Name=tag:platform,Values=test' --query 'Reservations[].Instances[].InstanceId' --output text)
                 echo $INSTANCE_ID
-                // aws ssm send-command --instance-ids $INSTANCE_ID --document-name "AWS-RunShellScript" --parameters '{"commands":["aws s3 cp s3://raz-flask-artifacts/alpaca.tar.gz ~/alpaca.tar.gz"]}' --output text --region eu-central-1
+                # aws ssm send-command --instance-ids $INSTANCE_ID --document-name "AWS-RunShellScript" --parameters '{"commands":["aws s3 cp s3://raz-flask-artifacts/alpaca.tar.gz ~/alpaca.tar.gz"]}' --output text --region eu-central-1
 
                 # Connect to the EC2 instance
                 echo "Connecting to EC2..."
                 ssh -o StrictHostKeyChecking=no -i ~/.ssh/raz-key.pem ec2-user@${INSTANCE_ID} "
-                //tar -xzvf ~/alpaca.tar.gz -C /home/ec2-user/
+                # tar -xzvf ~/alpaca.tar.gz -C /home/ec2-user/
                 echo whoami
                 "
 
