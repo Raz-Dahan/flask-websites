@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        INSTANCE_ID = ""
+        EC2_IP = "18.196.60.253"
     }
     stages {
         stage('Cleanup') {
@@ -29,7 +29,11 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'echo "Testing..."'
-
+                withAWS(credentials: 'aws_admins') {
+                sh 'aws s3 cp s3://raz-flask-artifacts/crypto.tar.gz /var/lib/jenkins/workspace/alpaca.tar.gz'
+                sshagent(['ssh-config']) {
+                         sh 'scp -i /var/lib/jenkins/raz-key.pem /var/lib/jenkins/workspace/crypto.tar.gz ec2-user@${EC2_IP}:/home/ec2-user'
+                    
                 // Move tar file from S3 to EC2 instance with tag "platform:test"
                 sh 'echo "Moving tar file to EC2..."'
                 sh '''
