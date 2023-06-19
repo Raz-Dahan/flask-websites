@@ -28,32 +28,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'echo "Testing..."'
-                withAWS(credentials: 'aws_admins') {
-                sh 'aws s3 cp s3://raz-flask-artifacts/crypto.tar.gz /var/lib/jenkins/workspace/alpaca.tar.gz'
-                sshagent(['ssh-config']) {
-                         sh 'scp -i /var/lib/jenkins/raz-key.pem /var/lib/jenkins/workspace/crypto.tar.gz ec2-user@${EC2_IP}:/home/ec2-user'
-                    
-                // Move tar file from S3 to EC2 instance with tag "platform:test"
-                sh 'echo "Moving tar file to EC2..."'
-                sh '''
-                INSTANCE_ID=$(aws ec2 describe-instances --filters 'Name=tag:platform,Values=test' --query 'Reservations[].Instances[].InstanceId' --output text)
-                echo $INSTANCE_ID
-                # aws ssm send-command --instance-ids $INSTANCE_ID --document-name "AWS-RunShellScript" --parameters '{"commands":["aws s3 cp s3://raz-flask-artifacts/alpaca.tar.gz ~/alpaca.tar.gz"]}' --output text --region eu-central-1
-
-                # Connect to the EC2 instance
-                echo "Connecting to EC2..."
-                ssh -o StrictHostKeyChecking=no -i ~/.ssh/raz-key.pem ec2-user@${INSTANCE_ID} "
-                # tar -xzvf ~/alpaca.tar.gz -C /home/ec2-user/
-                echo whoami
-                "
-
-                # Optionally, you can run additional test commands here
-
-                # Clean up the tar file on the EC2 instance
-                echo "Cleaning up..."
-                ssh -o StrictHostKeyChecking=no -i ~/.ssh/raz-key.pem ec2-user@${INSTANCE_ID} "rm ~/alpaca.tar.gz"
-                '''
+                sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/key.pem ec2-user@${EC2_IP}'
             }
         }
     }
