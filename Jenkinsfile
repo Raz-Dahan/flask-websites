@@ -26,6 +26,8 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'echo "Testing..."'
+                sh 'aws s3 cp s3://raz-flask-artifacts/alpaca.tar.gz /path/to/destination/'
+                sh 'tar -xzvf /path/to/destination/alpaca.tar.gz -C /path/to/destination'
             }
         }
         stage('Deploy') {
