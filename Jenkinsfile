@@ -30,6 +30,7 @@ pipeline {
                 // Move tar file from S3 to EC2 instance with tag "platform:test"
                 sh 'echo "Moving tar file to EC2..."'
                 sh 'instance_id=$(aws ec2 describe-instances --filters "Name=tag:platform,Values=test" --query "Reservations[].Instances[].InstanceId" --output text)'
+                sh 'echo $instance_id'
                 sh 'aws s3 cp s3://raz-flask-artifacts/alpaca.tar.gz ~/alpaca.tar.gz'
                 sh 'aws ec2 scp ~/alpaca.tar.gz ${instance_id}:~/alpaca.tar.gz'
 
