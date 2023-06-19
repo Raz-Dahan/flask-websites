@@ -32,7 +32,7 @@ pipeline {
                 withAWS(credentials: 'aws_admins') {
                 sh 'aws s3 cp s3://raz-flask-artifacts/alpaca.tar.gz /var/lib/jenkins/workspace/alpaca.tar.gz'
                 sshagent(['ssh-config']) {
-                         sh 'scp -i /var/lib/jenkins/raz-key.pem /var/lib/jenkins/workspace/crypto.tar.gz ec2-user@${EC2_IP}:/home/ec2-user'
+                         sh 'scp -i /var/lib/jenkins/raz-key.pem /var/lib/jenkins/workspace/alpaca.tar.gz ec2-user@${EC2_IP}:/home/ec2-user'
                     }
                 }
             }
