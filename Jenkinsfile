@@ -29,10 +29,11 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'echo "Copying S3 object to ec2..."'
-                sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/raz-key.pem ec2-user@${EC2_IP} "
+                sh '''
+                ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/raz-key.pem ec2-user@${EC2_IP}
                 aws s3 cp s3://raz-flask-artifacts/alpaca.tar.gz /var/lib/jenkins/workspace/alpaca.tar.gz
                 tar -xvf /home/ec2-user/alpaca.tar.gz
-                "'
+                '''
             }
         }
     }
