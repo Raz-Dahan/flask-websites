@@ -27,23 +27,27 @@ pipeline {
             steps {
                 sh 'echo "Testing..."'
                 script {
-                    def instances = awsEC2.describeInstances(
-                        [
-                            filters: [
-                                [name: 'tag:platform', values: 'test']
+                    try {
+                        def instances = awsEC2.describeInstances(
+                            [
+                                filters: [
+                                    [name: 'tag:platform', values: 'test']
+                                ]
                             ]
-                        ]
-                    ).reservations.flatten().collectMany { it.instances }
-                    
-                    if (instances.size() == 0) {
-                        error("No instances found with the 'platform:test' tag.")
-                    } else if (instances.size() > 1) {
-                        error("Multiple instances found with the 'platform:test' tag. Please ensure only one instance has this tag.")
-                    } else {
-                        def instanceId = instances[0].instanceId
-                        sh "aws s3 cp s3://raz-flask-artifacts/alpaca.tar.gz /home/ec2-user/"
-                        sh "tar -xzvf /home/ec2-user/alpaca.tar.gz -C /home/ec2-user/"
-                        // Perform other test-related tasks on the EC2 instance
+                        ).reservations.flatten().collectMany { it.instances }
+
+                        if (instances.size() == 0) {
+                            error("No instances found with the 'platform:test' tag.")
+                        } else if (instances.size() > 1) {
+                            error("Multiple instances found with the 'platform:test' tag. Please ensure only one instance has this tag.")
+                        } else {
+                            def instanceId = instances[0].instanceId
+                            sh "aws s3 cp s3://raz-flask-artifacts/alpaca.tar.gz /home/ec2-user/"
+                            sh "tar -xzvf /home/ec2-user/alpaca.tar.gz -C /home/ec2-user/"
+                            // Perform other test-related tasks on the EC2 instance
+                        }
+                    } catch (Exception e) {
+                        error("An error occurred during the 'Test' stage: ${e.getMessage()}")
                     }
                 }
             }
