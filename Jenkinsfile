@@ -40,8 +40,8 @@ pipeline {
                 # Connect to the EC2 instance
                 echo "Connecting to EC2..."
                 ssh -o StrictHostKeyChecking=no -i ~/.ssh/raz-key.pem ec2-user@${INSTANCE_ID} "
-                tar -xzvf ~/alpaca.tar.gz -C /home/ec2-user/
-                echo working
+                //tar -xzvf ~/alpaca.tar.gz -C /home/ec2-user/
+                echo whoami
                 "
 
                 # Optionally, you can run additional test commands here
