@@ -31,6 +31,9 @@ pipeline {
                 sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/raz-key.pem ec2-user@${EC2_IP}'
                 withAWS(credentials: 'aws_admins') {
                 sh 'aws s3 cp s3://raz-flask-artifacts/alpaca.tar.gz /var/lib/jenkins/workspace/alpaca.tar.gz'
+                sshagent(['aws-key-ssh']) {
+                         sh 'scp -i /var/lib/jenkins/raz-key.pem /var/lib/jenkins/workspace/crypto.tar.gz ec2-user@${EC2_IP}:/home/ec2-user'
+                    }
                 }
             }
         }
