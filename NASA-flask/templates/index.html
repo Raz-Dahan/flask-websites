@@ -15,11 +15,9 @@
         <button type="submit" class="button-64" role="button"><span class="text">Submit</span></button>
     </form>
     <div class="image-container">
-        {% if image_url %}
         <div class="floating-photo">
-            <img src="{{ image_url }}" alt="NASA Image of the Day">
+            <img src="{{ today_image_url }}" alt="NASA Image of the Day">
         </div>
-        {% endif %}
     </div>
     {% if image_url %}
     <div class="center-photo">
