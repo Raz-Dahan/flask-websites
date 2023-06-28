@@ -30,7 +30,9 @@ button {
 }
 
 .image-container {
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     margin-top: 30px;
 }
 
@@ -40,9 +42,6 @@ button {
 }
 
 .floating-photo {
-    position: absolute;
-    top: 20px;
-    left: 20px;
     max-width: 200px;
     border: 2px solid #333;
     border-radius: 4px;
@@ -60,3 +59,6 @@ button {
     font-size: 24px;
 }
 
+.center-photo {
+    margin-top: 20px;
+}
