@@ -15,11 +15,11 @@
     <div class="image-container">
         <div class="floating-photo">
             {% if image_url %}
-                <img src="{{ https://api.nasa.gov/planetary/apod?api_key={api_key} }}" alt="NASA Image of the Day">
+                <img src="{{ image_url }}" alt="NASA Image of the Day">
             {% endif %}
         </div>
         {% if image_url %}
-            <img src="{{ https://api.nasa.gov/planetary/apod?api_key={api_key} }}" alt="NASA Image of the Day" class="today-photo">
+            <img src="{{ image_url }}" alt="NASA Image of the Day" class="today-photo">
         {% endif %}
     </div>
 </body>
