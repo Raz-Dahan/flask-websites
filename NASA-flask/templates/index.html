@@ -9,7 +9,33 @@
         <h1>NASA Image of the Day</h1>
     </div>
     <form method="POST" action="/">
+        <input type="date" name="date" required><!DOCTYPE html>
+<html>
+<head>
+    <title>NASA Image of the Day</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="title-bar">
+        <h1>NASA Image of the Day</h1>
+    </div>
+    <form method="POST" action="/">
         <input type="date" name="date" required>
+        <button type="submit">Submit</button>
+    </form>
+    <div class="image-container">
+        {% if image_url %}
+            <div class="floating-photo">
+                <img src="{{ image_url }}" alt="NASA Image of the Day">
+            </div>
+            <div class="center-photo">
+                <img src="{{ image_url }}" alt="NASA Image of the Day" class="today-photo">
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
         <button type="submit">Submit</button>
     </form>
     <div class="image-container">
