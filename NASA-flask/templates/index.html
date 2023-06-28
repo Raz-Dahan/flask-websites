@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NASA Image of the Day</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 50px;
+        }
+        form {
+            margin-top: 30px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #FFF;
+            border: none;
+            cursor: pointer;
+        }
+        img {
+            max-width: 800px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>NASA Image of the Day</h1>
+    <form method="POST" action="/">
+        <input type="date" name="date" required>
+        <button type="submit">Submit</button>
+    </form>
+    {% if image_url %}
+        <img src="{{ image_url }}" alt="NASA Image of the Day">
+    {% endif %}
+</body>
+</html>
