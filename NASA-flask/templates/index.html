@@ -2,34 +2,7 @@
 <html>
 <head>
     <title>NASA Image of the Day</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        h1 {
-            margin-top: 50px;
-        }
-        form {
-            margin-top: 30px;
-        }
-        input {
-            padding: 10px;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007BFF;
-            color: #FFF;
-            border: none;
-            cursor: pointer;
-        }
-        img {
-            max-width: 800px;
-            margin-top: 30px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>NASA Image of the Day</h1>
@@ -37,8 +10,13 @@
         <input type="date" name="date" required>
         <button type="submit">Submit</button>
     </form>
-    {% if image_url %}
-        <img src="{{ image_url }}" alt="NASA Image of the Day">
-    {% endif %}
+    <div class="image-container">
+        <div class="floating-photo">
+            <img src="{{ url_for('static', filename='floating_photo.jpg') }}" alt="Floating Photo">
+        </div>
+        {% if image_url %}
+            <img src="{{ image_url }}" alt="NASA Image of the Day" class="main-photo">
+        {% endif %}
+    </div>
 </body>
 </html>
