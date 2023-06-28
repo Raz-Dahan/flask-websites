@@ -20,15 +20,6 @@ input {
     font-size: 16px;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #080808;
-    color: #FFF;
-    border: none;
-    cursor: pointer;
-}
-
 .image-container {
     display: flex;
     justify-content: center;
