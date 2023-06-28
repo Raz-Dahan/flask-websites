@@ -12,7 +12,7 @@ def home():
     return render_template('index.html')
 
 def get_nasa_image(date):
-    api_key = '8OOct2VqyJle8dnlsXlkXu5KOavMNHe7OBbNCFHi'
+    api_key = 'ZDvcmGgPrL1RTruysZW8fjo9nrSm6jJxaabxV25Z'
     url = f'https://api.nasa.gov/planetary/apod?api_key={api_key}&date={date}'
     response = requests.get(url)
     if response.status_code == 200:
