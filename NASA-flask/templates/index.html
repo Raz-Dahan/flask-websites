@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>NASA Image of the Day</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
     <div class="title-bar">
         <h1>NASA Image of the Day</h1>
     </div>
     <form method="POST" action="/">
         <input type="date" name="date" required>
-        <button type="submit">Submit</button>
+        <button type="submit" class="button-30" role="button">Submit</button>
     </form>
     <div class="image-container">
         {% if image_url %}
-            <div class="floating-photo">
-                <img src="{{ image_url }}" alt="NASA Image of the Day">
-            </div>
+        <div class="floating-photo">
+            <img src="{{ image_url }}" alt="NASA Image of the Day">
+        </div>
         {% endif %}
     </div>
     {% if image_url %}
-        <div class="center-photo">
-            <img src="{{ image_url }}" alt="NASA Image of the Day" class="today-photo">
-        </div>
+    <div class="center-photo">
+        <img src="{{ image_url }}" alt="NASA Image of the Day" class="today-photo">
+    </div>
     {% endif %}
 </body>
+
 </html>
