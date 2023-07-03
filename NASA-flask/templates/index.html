@@ -28,14 +28,14 @@
     <div>
         <h1 style="text-align: center; margin: 16px;"> ChosenDate</h1>
         <div style="display: flex; justify-content: center; margin: 16px;">
-            <img src="{{ image_url }}" alt="NASA Image of the Day">
+            <img src="{{ image_url }}" alt="NASA Image of the Day" width=440px height=auto>
         </div>
     </div>
     {% endif %}
-    <div>
-        <h1 style="text-align: center; margin: 16px;"> Today</h1>
+    <div style="display: flex; flex-direction: column; align-items: center; float: left; position: fixed;">
+        <h1 style="text-align: center; margin: 16px; float: left;"> Today</h1>
         <div style="display: flex; justify-content: center; margin: 16px;">
-            <img src="{{ today_image_url }}" alt="NASA Image of the Day">
+            <img src="{{ today_image_url }}" alt="NASA Image of the Day" width=220px height=auto>
         </div>
     </div>
 </body>
