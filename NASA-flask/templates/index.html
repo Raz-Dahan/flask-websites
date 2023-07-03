@@ -3,27 +3,41 @@
 
 <head>
     <title>NASA Image of the Day</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="title-bar">
-        <h1>NASA Image of the Day</h1>
+    <div>
+        <h1 style="text-align: center; margin: 16px;">NASA Image of the Day</h1>
     </div>
-    <form method="POST" action="/">
+    <form method="POST" action="/" style="display: flex; justify-content: center; gap: 16px;">
         <input type="date" name="date" required>
-        <button type="submit" class="button-64" role="button"><span class="text">Submit</span></button>
+        <button type="submit" role="button"><span>Submit</span></button>
     </form>
-    <div class="image-container">
-        <div class="floating-photo">
+    {% if image_url %}
+    <div>
+        <h1 style="text-align: center; margin: 16px;"> ChosenDate</h1>
+        <div style="display: flex; justify-content: center; margin: 16px;">
+            <img src="{{ image_url }}" alt="NASA Image of the Day">
+        </div>
+    </div>
+    {% endif %}
+    <div>
+        <h1 style="text-align: center; margin: 16px;"> Today</h1>
+        <div style="display: flex; justify-content: center; margin: 16px;">
             <img src="{{ today_image_url }}" alt="NASA Image of the Day">
         </div>
     </div>
-    {% if image_url %}
-    <div class="center-photo">
-        <img src="{{ image_url }}" alt="NASA Image of the Day" class="today-photo">
-    </div>
-    {% endif %}
 </body>
 
 </html>

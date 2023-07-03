@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from datetime import date
+from datetime import date, datetime
 import requests
 
 app = Flask(__name__)
@@ -9,7 +9,7 @@ def home():
     if request.method == 'POST':
         request_date = request.form['date']
         image_url = get_nasa_image(request_date)
-        today_image_url = get_nasa_image(date.today())
+        today_image_url = get_nasa_image(date.today().strftime("%Y-%m-%d"))
         return render_template('index.html', image_url=image_url, today_image_url=today_image_url)
     return render_template('index.html')
 
