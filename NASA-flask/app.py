@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from datetime import date, datetime
+from datetime import date
 import requests
 
 app = Flask(__name__)
@@ -11,7 +11,9 @@ def home():
         image_url = get_nasa_image(request_date)
         today_image_url = get_nasa_image(date.today().strftime("%Y-%m-%d"))
         return render_template('index.html', image_url=image_url, today_image_url=today_image_url)
-    return render_template('index.html')
+    else:
+        today_image_url = get_nasa_image(date.today().strftime("%Y-%m-%d"))
+        return render_template('index.html', today_image_url=today_image_url)
 
 def get_nasa_image(date):
     api_key = 'ZDvcmGgPrL1RTruysZW8fjo9nrSm6jJxaabxV25Z'
