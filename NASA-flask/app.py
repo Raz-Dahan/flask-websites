@@ -5,15 +5,16 @@ import requests
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
-def home():
+def index():
+    logo_url = "nasaLogo.png"
     if request.method == 'POST':
         request_date = request.form['date']
         image_url = get_nasa_image(request_date)
         today_image_url = get_nasa_image(date.today().strftime("%Y-%m-%d"))
-        return render_template('index.html', image_url=image_url, today_image_url=today_image_url)
+        return render_template('index.html', image_url=image_url, today_image_url=today_image_url, logo_url=logo_url)
     else:
         today_image_url = get_nasa_image(date.today().strftime("%Y-%m-%d"))
-        return render_template('index.html', today_image_url=today_image_url)
+        return render_template('index.html', today_image_url=today_image_url, logo_url=logo_url) 
 
 def get_nasa_image(date):
     api_key = 'ZDvcmGgPrL1RTruysZW8fjo9nrSm6jJxaabxV25Z'

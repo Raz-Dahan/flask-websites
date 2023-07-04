@@ -2,22 +2,45 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/' +logo_url) }}" />
     <title>NASA Image of the Day</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-        }
-    </style>
 </head>
 
 <body>
-    <div>
+    <div class='header'>
+        <div class='title'>NASA</div>
+        <img class='logo' src="{{ url_for('static', filename='images/' +logo_url) }}" />
+    </div>
+    <div class="flex_container">
+        <div class='today_img_container'>
+            <div class='img_title'>Image of the day</div>
+            <img class='today_img' src="{{ today_image_url }}" />
+            <div class='description'>The highly irregular galaxy ESO 174-1, which resembles a lonely, hazy cloud against
+                a
+                backdrop of bright
+                stars,
+                dominates this image from the NASA/ESA Hubble Space Telescope.
+            </div>
+        </div>
+        <div class="birthday_container">
+            <div>Check the NASA image of the day on your birthday!</div>
+            <form class='form_container' method="POST" action="/">
+                <input class="date_btn" type="date" name="date" required>
+                <button class='submit_btn' type="submit" role="button"><span>Submit</span></button>
+            </form>
+            {% if image_url %}
+            <div>
+                <div style="display: flex; justify-content: center; margin: 16px;">
+                    <img src="{{ image_url }}" alt="NASA Image of the Day" width=440px height=auto>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- <div class="test">
         <h1 style="text-align: center; margin: 16px;">NASA Image of the Day</h1>
     </div>
     <form method="POST" action="/" style="display: flex; justify-content: center; gap: 16px;">
@@ -37,7 +60,7 @@
         <div style="display: flex; justify-content: center; margin: 16px;">
             <img src="{{ today_image_url }}" alt="NASA Image of the Day" width=220px height=auto>
         </div>
-    </div>
+    </div> -->
 </body>
 
 </html>
