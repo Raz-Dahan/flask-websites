@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request
 from datetime import date
 import requests
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -17,8 +21,8 @@ def index():
         return render_template('index.html', today_image_url=today_image_url, logo_url=logo_url) 
 
 def get_nasa_image(date):
-    api_key = 'ZDvcmGgPrL1RTruysZW8fjo9nrSm6jJxaabxV25Z'
-    url = f'https://api.nasa.gov/planetary/apod?api_key={api_key}&date={date}'
+    secret_key = os.getenv('API_KEY')
+    url = f'https://api.nasa.gov/planetary/apod?api_key={secret_key}&date={date}'
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
