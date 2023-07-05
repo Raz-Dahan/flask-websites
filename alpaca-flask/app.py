@@ -22,8 +22,9 @@ images = [
 
 @app.route("/")
 def index():
-    url = random.choice(images)
-    return render_template("index.html", url=url)
+    gif_url = random.choice(images)
+    logo_url = "logo.png"
+    return render_template("index.html", gif_url=gif_url, logo_url=logo_url)
 
 
 if __name__ == "__main__":
