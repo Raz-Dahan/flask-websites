@@ -23,4 +23,4 @@ def index():
     return render_template('index.html', bitcoin_price=bitcoin_price, ethereum_price=ethereum_price, litecoin_price=litecoin_price, background_url=background_url, logo_url=logo_url)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    app.run(debug=True)
