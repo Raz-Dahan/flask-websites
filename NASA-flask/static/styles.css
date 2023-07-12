@@ -51,28 +51,31 @@ Todays image styling
 .today_img_container {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 19%;
+    height: 72vh;
     color: #323a45;
-    padding-right: 3rem;
-    padding-left: 1rem;
+    padding-right: 2rem;
+    padding-left: 2rem;
     border-right: 1px solid #323a45;
     text-align: center;
+    justify-content: center;
 }
 
 .img_title {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    margin-bottom: .9rem;
 }
 
-;
 
 .today_img {
-    width: 90%;
+    width: 100%;
     height: auto;
 }
 
 .description {
     text-align: left;
     font-size: .8rem;
+    margin-top: .5rem;
 }
 
 /* ----------------------------------------------
@@ -81,13 +84,27 @@ Birthday image styling
 .submit_btn {
     font-family: LogoFont;
     background-color: #FC3D21;
-    color: white;
-    border: none;
-    border-radius: 5px;
     width: 5rem;
     height: 1.5rem;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: white;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
 }
 
+.submit_btn:hover {
+    background-color: #c52e18;
+    box-shadow: 0px 7px 17px rgba(184, 38, 38, .5);
+    color: #fff;
+    transform: translateY(-7px);
+}
 
 .birthday_container {
     display: flex;
@@ -108,5 +125,41 @@ Birthday image styling
     height: 1.5rem;
     border-radius: 5px;
     text-align: center;
+    cursor: pointer;
     /* font-family: 'Roboto', sans-serif; */
+}
+
+.submit_form_container {
+    display: flex;
+    height: 72vh;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.reload_btn {
+    font-family: LogoFont;
+    background-color: #FC3D21;
+    width: 5rem;
+    height: 1.5rem;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: white;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.birthday_img {
+    width: 70%;
+}
+
+.birthday_flex_container {
+    display: flex;
+    padding-left: 2rem;
 }
